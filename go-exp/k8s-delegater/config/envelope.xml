@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
+   <s:Header>
+      <a:Action s:mustUnderstand="1">http://tempuri.org/IConnectorIncidentManager/AddOrUpdateIncident2</a:Action>
+      <a:MessageID>urn:uuid:{message_id}</a:MessageID>
+      <a:To s:mustUnderstand="1">https://ppe.microsofticm.com/Connector3/ConnectorIncidentManager.svc</a:To>
+   </s:Header>
+   <s:Body>
+      <AddOrUpdateIncident2 xmlns="http://tempuri.org/">
+         <connectorId>{connector_id}</connectorId>
+         <incident xmlns:b="http://schemas.datacontract.org/2004/07/Microsoft.AzureAd.Icm.Types" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+{incident_content}
+         </incident>
+         <routingOptions>{routing_options}</routingOptions>
+      </AddOrUpdateIncident2>
+   </s:Body>
+</s:Envelope>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pegasas.exp</groupId>
+    <artifactId>java-exp</artifactId>
+    <version>dev-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>web</module>
+        <module>flink</module>
+        <module>flink/flink-custom-connector</module>
+    </modules>
+
+    <properties>
+        <!-- Java -->
+        <jdk.version>8</jdk.version>
+        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+
+        <!-- Scala -->
+        <scala.binary.version>2.12</scala.binary.version>
+
+        <!-- Hadoop -->
+        <hadoop.version>3.3.6</hadoop.version>
+
+        <!-- Hive -->
+        <hive.version>3.1.3</hive.version>
+
+        <!-- Flink -->
+        <flink.version>1.18.1</flink.version>
+
+        <!-- Azure SDK BOM -->
+        <azure.sdk.bom>1.2.21</azure.sdk.bom>
+        <azure.kusto.version>3.2.1</azure.kusto.version>
+
+        <!-- Flink Shaded Guave -->
+        <flink.shaded.guava.version>31.1-jre-17.0</flink.shaded.guava.version>
+
+        <!-- MySQL JDBC -->
+        <mysql.jdbc.version>8.2.0</mysql.jdbc.version>
+
+        <!-- SQL Server JDBC -->
+        <mssql.jdbc.version>12.6.1.jre8</mssql.jdbc.version>
+        <!-- SQL Server Managed Identity Auth -->
+        <oauth2.oidc.sdk.version>11.9.1</oauth2.oidc.sdk.version>
+        <msal4j.version>1.13.8</msal4j.version>
+
+        <!-- HTTP Client -->
+        <http.client.version>4.5.14</http.client.version>
+
+        <!-- Fat Jar -->
+        <maven.shade.plugin.version>3.3.0</maven.shade.plugin.version>
+
+        <!-- Unit Test -->
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <junit.version>4.12</junit.version>
+        <mockito.core.version>4.8.0</mockito.core.version>
+
+        <!-- Integration Test -->
+        <maven.failsafe.plugin.version>3.2.5</maven.failsafe.plugin.version>
+        <build.helper.maven.plugin.version>3.3.0</build.helper.maven.plugin.version>
+
+        <!-- slj4j & log4j -->
+        <slf4j.version>1.7.32</slf4j.version>
+        <log4j.version>2.17.1</log4j.version>
+
+        <!-- Jackson -->
+        <!-- Warning: there also related to server side log4j& slf4j logging -->
+        <jackson.core.version>2.14.0</jackson.core.version>
+
+        <!-- springboot -->
+        <springboot.version>2.7.18</springboot.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 1P -->
+
+
+            <!-- 3P -->
+
+            <!-- springboot -->
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.core.version}</version>
+            </dependency>
+
+            <!-- Azure SDK -->
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-sdk-bom</artifactId>
+                <version>${azure.sdk.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Flink -->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-kafka</artifactId>
+                <version>3.0.2-1.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-jdbc</artifactId>
+                <version>3.1.1-1.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-json</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-hive_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-api-scala-bridge_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-pulsar</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-files</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-csv</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-base</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-api-java-bridge</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-streaming-java</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-common</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-statebackend-rocksdb</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-clients</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-datagen</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-java</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-test-utils</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-sql-jdbc-driver-bundle</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
+            <!-- Flink Shaded Guave -->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-shaded-guava</artifactId>
+                <version>31.1-jre-17.0</version>
+            </dependency>
+
+            <!-- MySQL JDBC -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.jdbc.version}</version>
+            </dependency>
+
+            <!-- SQL Server JDBC -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>${mssql.jdbc.version}</version>
+            </dependency>
+            <!-- SQL Server Managed Identity Auth -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>oauth2-oidc-sdk</artifactId>
+                <version>${oauth2.oidc.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>msal4j</artifactId>
+                <version>${msal4j.version}</version>
+            </dependency>
+
+            <!-- Logging slf4j & log4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <!-- Unit Tests -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id></id>-->
+<!--            <url></url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id></id>-->
+<!--            <url></url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
+</project>

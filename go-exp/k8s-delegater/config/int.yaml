@@ -1,0 +1,6 @@
+server.port: 8080
+
+sql.server.host: xpay-sql-int-eus.database.windows.net
+sql.server.port: 1433
+sql.server.database: xpay-sql-p1
+sql.server.username: xpay-cdc

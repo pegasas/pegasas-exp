@@ -1,0 +1,2 @@
+org.apache.flink.connector.sqlserver.table.JdbcDynamicTableFactory
+org.apache.flink.connector.sqlserver.catalog.factory.JdbcCatalogFactory

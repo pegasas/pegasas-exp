@@ -1,0 +1,64 @@
+{{- $fullName := include "flink-deployer.fullname" . -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "flink-deployer.fullname" . }}
+  labels:
+    {{- include "flink-deployer.labels" . | nindent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "flink-deployer.selectorLabels" . | nindent 8 }}
+        aadpodidbinding: {{ .Values.aad.identityName }}
+    spec:
+      restartPolicy: "{{ .Values.restartPolicy }}"
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: FLINK_VERSION
+            value: "{{ .Values.env.flinkVersion }}"
+          - name: ENVIRONMENT
+            value: "{{ .Values.env.environment }}"
+          - name: SUBSCRIPTION_ID
+            value: "{{ .Values.env.subscriptionId }}"
+          - name: RESOURCE_GROUP
+            value: "{{ .Values.env.resourceGroup }}"
+          - name: CLUSTER
+            value: "{{ .Values.env.cluster }}"
+          - name: ADLS_GEN2_ACCOUNT_NAME
+            value: "{{ .Values.env.adlsGen2AccountName }}"
+          - name: ADLS_GEN2_ACCOUNT_KEY
+            value: "{{ .Values.env.adlsGen2AccountKey }}"
+          - name: FILE_NAME_SUFFIX
+            value: "{{ .Values.env.fileNameSuffix }}"
+          - name: AAD_IDENTITY_NAME
+            value: "{{ .Values.env.aadIdentityName }}"
+          - name: REGISTRY_NAME
+            value: "{{ .Values.env.registryName }}"
+          - name: ARTIFACT_ID
+            value: "{{ .Values.env.artifactId }}"
+          - name: BUILD_ID
+            value: "{{ .Values.env.buildId }}" 
+          - name: DW_LAYER
+            value: "{{ .Values.env.dwLayer }}" 
+          - name: APPLICATION
+            value: "{{ .Values.env.application }}" 
+          - name: CLUSTER_ID
+            value: "{{ .Values.env.clusterId }}"
+          - name: CPU_CORE
+            value: "{{ .Values.env.CPUCore }}"
+          - name: JOB_MANAGER_MEMORY
+            value: "{{ .Values.env.JobManagerMemory }}"
+          - name: TASK_MANAGER_MEMORY
+            value: "{{ .Values.env.TaskManagerMemory }}"
+          - name: TASK_MANAGER_TASK_SLOT_NUM
+            value: "{{ .Values.env.TaskManagerTaskSlotNum }}"
+          command:
+          {{- toYaml .Values.command | nindent 10 }}
+
+      
+

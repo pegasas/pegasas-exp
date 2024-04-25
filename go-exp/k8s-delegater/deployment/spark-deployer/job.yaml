@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spark-deployer
+spec:
+  template:
+    metadata:
+      labels:
+        aadpodidbinding: xpay-aks-identity-ci-eus
+    spec:
+      containers:
+      - name: spark-deployer
+        image: xpayregistry.azurecr.io/azure-cli:1.0.0
+        imagePullPolicy: Always
+        env:
+          - name: SUBSCRIPTION_ID
+            value: "fc0c099d-dc9c-4d6c-9822-fa5dc6f07a58"
+          - name: RESOURCE_GROUP
+            value: "xpay-int"
+          - name: CLUSTER
+            value: "xpay-aks-int-eus"
+          - name: ADLS_GEN2_ACCOUNT_NAME
+            value: "xpayadlsgen2ci"
+          - name: ADLS_GEN2_ACCOUNT_KEY
+            value: ""
+          - name: SPARK_VERSION
+            value: "3.3.1"
+        command:
+        - /bin/sh
+        - -c
+        - |
+          az login --identity
+          az account set --subscription $SUBSCRIPTION_ID
+          az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER
+          az aks install-cli
+          kubectl version --client
+          kubelogin --version
+          export KUBECONFIG=/root/.kube/config
+          export PATH=$PATH:/usr/local/sbin
+          kubelogin convert-kubeconfig -l msi 
+          cat /root/.kube/config
+          kubectl get pod
+          kubectl get namespace
+
+          az storage blob download --account-name $ADLS_GEN2_ACCOUNT_NAME --account-key $ADLS_GEN2_ACCOUNT_KEY --container-name xpayspark --file spark-$SPARK_VERSION-bin-hadoop3.tgz --name spark-$SPARK_VERSION-bin-hadoop3.tgz
+          tar -zxvf spark-$SPARK_VERSION-bin-hadoop3.tgz
+
+          az storage blob download-batch --account-name $ADLS_GEN2_ACCOUNT_NAME --account-key $ADLS_GEN2_ACCOUNT_KEY -s xpayspark -d . --pattern jars/*
+          cp -r jars/ spark-$SPARK_VERSION-bin-hadoop3/jars/
+
+          cd spark-$SPARK_VERSION-bin-hadoop3/
+
+          ./bin/spark-submit \
+            --master k8s://https://xpay-aks-int-eus-dns-3264eb8c.hcp.eastus.azmk8s.io:443 \
+            --deploy-mode cluster \
+            --name spark-pi \
+            --class com.microsoft.xpay.SparkDWHouse \
+            --conf spark.eventLog.enabled=true \
+            --conf spark.eventLog.dir=wasbs://xpayspark@$ADLS_GEN2_ACCOUNT_NAME.blob.core.windows.net/spark-hs \
+            --conf spark.hadoop.fs.azure.account.key.$ADLS_GEN2_ACCOUNT_NAME.blob.core.windows.net=$ADLS_GEN2_ACCOUNT_KEY \
+            --conf spark.driver.extraJavaOptions="-Divy.cache.dir=/tmp -Divy.home=/tmp" \
+            --conf spark.executor.instances=5 \
+            --conf spark.kubernetes.namespace=spark \
+            --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+            --conf spark.kubernetes.container.image=xpayregistry.azurecr.io/spark:3.3.1 \
+            wasbs://xpayspark@$ADLS_GEN2_ACCOUNT_NAME.blob.core.windows.net/spark-dwhouse-1.0-SNAPSHOT.jar
+      restartPolicy: Never

@@ -1,0 +1,62 @@
+image:
+  repository: xpayregistry.azurecr.io/azure-cli
+  pullPolicy: Always
+  tag: 1.0.0
+
+nameOverride: placeholder
+fullnameOverride: placeholder
+
+aad:
+  identityName: "xpay-aks-identity-ci-eus"
+
+env:
+  flinkVersion: 1.16.0
+  environment: CI
+  registryName: xpayregistry
+  subscriptionId: c89bd8d5-b7df-4740-a106-2ab44f15447e
+  resourceGroup: ps2c.ci
+  cluster: xpay-aks-ci-eus
+  adlsGen2AccountName: xpayadlsgen2ci
+  adlsGen2AccountKey: placeholder
+  aadIdentityName: xpay-aks-identity-ci-eus
+  artifactId: placeholder
+  buildId: placeholder
+  dwLayer: placeholder
+  application: placeholder
+  clusterId: placeholder
+  CPUCore: 0.2
+  JobManagerMemory: 1600m
+  TaskManagerMemory: 1728m
+  TaskManagerTaskSlotNum: 1
+
+command:
+- /bin/sh
+- -c
+- |
+  az login --identity
+  az account set --subscription $SUBSCRIPTION_ID
+  az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER
+  az aks install-cli
+  kubectl version --client
+  kubelogin --version
+  export KUBECONFIG=/root/.kube/config
+  export PATH=$PATH:/usr/local/sbin
+  kubelogin convert-kubeconfig -l msi 
+  cat /root/.kube/config
+  kubectl get pod
+  kubectl get namespace
+  
+  ./bin/spark-submit \
+    --master k8s://https://xpay-aks-ci-eus-dns-236f071c.hcp.eastus.azmk8s.io:443 \
+    --deploy-mode cluster \
+    --name spark-pi \
+    --class org.apache.spark.examples.SparkPi \
+    --conf spark.executor.instances=5 \
+    --conf spark.kubernetes.namespace=spark \
+    --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+    --conf spark.kubernetes.container.image=xpayregistry.azurecr.io/spark:3.3.1 \
+    --conf spark.kubernetes.container.image.pullSecrets=xpayregistry \
+    local:///opt/spark/examples/jars/spark-examples_2.12-3.3.1.jar
+
+backoffLimit: 0
+restartPolicy: Never

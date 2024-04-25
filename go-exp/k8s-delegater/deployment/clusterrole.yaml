@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: "ClusterRole"
+metadata:
+  name: adf-role
+  namespace: adf-ext
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: "ClusterRoleBinding"
+metadata:
+  name: adf-ext-rolebinding
+  namespace: adf-ext
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: "ClusterRole"
+  name: adf-role
+subjects:
+- kind: ServiceAccount
+  name: xpay-k8s-delegater
+  namespace: adf-ext

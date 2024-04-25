@@ -1,0 +1,104 @@
+image:
+  repository: xpayregistry.azurecr.io/azure-cli
+  pullPolicy: Always
+  tag: 1.0.0
+
+nameOverride: placeholder
+fullnameOverride: placeholder
+
+aad:
+  identityName: "xpay-aks-identity-int-eus"
+
+env:
+  flinkVersion: 1.16.0
+  environment: INT
+  registryName: xpayregistry
+  subscriptionId: c89bd8d5-b7df-4740-a106-2ab44f15447e
+  resourceGroup: xpay-int
+  cluster: xpay-aks-int-eus
+  adlsGen2AccountName: xpayadlsgen2int
+  adlsGen2AccountKey: placeholder
+  aadIdentityName: xpay-aks-identity-int-eus
+  artifactId: placeholder
+  buildId: placeholder
+  dwLayer: placeholder
+  application: placeholder
+  clusterId: placeholder
+  CPUCore: 0.2
+  JobManagerMemory: 1600m
+  TaskManagerMemory: 1728m
+  TaskManagerTaskSlotNum: 1
+
+command:
+- /bin/sh
+- -c
+- |
+  az login --identity
+  az account set --subscription $SUBSCRIPTION_ID
+  az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER
+  az aks install-cli
+  kubectl version --client
+  kubelogin --version
+  export KUBECONFIG=/root/.kube/config
+  export PATH=$PATH:/usr/local/sbin
+  kubelogin convert-kubeconfig -l msi 
+  cat /root/.kube/config
+  kubectl get pod
+  kubectl get namespace
+  az storage blob download --account-name $ADLS_GEN2_ACCOUNT_NAME --account-key $ADLS_GEN2_ACCOUNT_KEY --container-name xpayflink --file flink-$FLINK_VERSION.tar.gz --name flink-$FLINK_VERSION.tar.gz
+  tar -zxvf flink-$FLINK_VERSION.tar.gz
+  az storage blob download-batch --account-name $ADLS_GEN2_ACCOUNT_NAME --account-key $ADLS_GEN2_ACCOUNT_KEY -s xpayflink -d . --pattern conf/$BUILD_ID/*
+  cp conf/$BUILD_ID/flink-conf.yaml flink-$FLINK_VERSION/conf/flink-conf.yaml
+  cp conf/$BUILD_ID/log4j-console.properties flink-$FLINK_VERSION/conf/log4j-console.properties
+  cp conf/$BUILD_ID/pod-template.yaml flink-$FLINK_VERSION/pod-template.yaml
+  cd flink-$FLINK_VERSION/
+
+  pod_count=`kubectl get pod -n flink | grep $CLUSTER_ID | wc -l`
+  echo ${pod_count}
+  if [ ${pod_count} -eq 0 ] ; then
+    echo "Skip";
+  else
+    echo "Stop Flink Job";
+    kubectl delete deployment $CLUSTER_ID -n flink
+  fi
+  
+  cm_count=`kubectl get cm -n flink | grep $CLUSTER_ID | wc -l`
+  echo ${cm_count}
+  if [ ${cm_count} -eq 0 ] ; then
+    echo "Skip";
+  else
+    echo "Clean HA Configuration";
+    for item in `kubectl get cm  -n flink | grep $CLUSTER_ID | awk '{print $1}'`
+    do
+      kubectl delete cm ${item} -n flink
+    done
+  fi
+
+  ./bin/flink run-application \
+  --target kubernetes-application \
+  -Dkubernetes.pod-template-file=pod-template.yaml \
+  -Dcontainerized.master.env.ENV=$ENVIRONMENT \
+  -Dcontainerized.taskmanager.env.ENV=$ENVIRONMENT \
+  -Dcontainerized.master.env.APP=$APPLICATION \
+  -Dcontainerized.taskmanager.env.APP=$APPLICATION \
+  -Dcontainerized.master.env.DWLAYER=$DW_LAYER \
+  -Dcontainerized.taskmanager.env.DWLAYER=$DW_LAYER \
+  -Dkubernetes.namespace=flink \
+  -Dkubernetes.service-account=flink \
+  -Dkubernetes.cluster-id=$CLUSTER_ID \
+  -Dkubernetes.container.image=$REGISTRY_NAME.azurecr.io/flink/$ARTIFACT_ID:$BUILD_ID \
+  -Dkubernetes.container.image.pull-policy=Always \
+  -Dkubernetes.jobmanager.cpu=$CPU_CORE \
+  -Dkubernetes.taskmanager.cpu=$CPU_CORE \
+  -Djobmanager.memory.process.size=$JOB_MANAGER_MEMORY \
+  -Dtaskmanager.memory.process.size=$TASK_MANAGER_MEMORY \
+  -Dtaskmanager.numberOfTaskSlots=$TASK_MANAGER_TASK_SLOT_NUM \
+  -Dkubernetes.jobmanager.labels="aadpodidbinding: xpay-aks-identity-int-eus" \
+  -Dkubernetes.taskmanager.labels="aadpodidbinding: xpay-aks-identity-int-eus" \
+  -Dkubernetes.jobmanager.annotations=prometheus.io/scrape:true,prometheus.io/port:9249 \
+  -Dkubernetes.taskmanager.annotations=prometheus.io/scrape:true,prometheus.io/port:9249 \
+  -Denv.java.opts="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8789 -Dcom.sun.management.jmxremote.rmi.port=8789 -Djava.rmi.server.hostname=127.0.0.1 placeholder" \
+  local:///opt/flink/usrlib/$ARTIFACT_ID-1.0-SNAPSHOT.jar  
+
+backoffLimit: 0
+restartPolicy: Never

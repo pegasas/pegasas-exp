@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: web3-ethereum-etl
+spec:
+  template:
+    metadata:
+      labels:
+        aadpodidbinding: xpay-aks-identity-ci-eus
+    spec:
+      containers:
+      - name: ethereum-etl
+        image: xpayregistry.azurecr.io/blockchainetl/ethereum-etl:2.1.2
+        args: ["export_blocks_and_transactions", "-p", "https://mainnet.infura.io/v3/4b8bd3995fdf475782c56456f5f379d6", "-s", "16298476", "-e", "16370251", "-w", "2", "--blocks-output", "/mnt/web3/blocks-16298476-16370251.csv", "--transactions-output", "/mnt/web3/transactions-16298476-16370251.csv"]
+        volumeMounts:
+        - name: xpayadlsgen2-xpayweb3-pvc
+          mountPath: /mnt/web3
+      restartPolicy: Never
+      volumes:
+      - name: xpayadlsgen2-xpayweb3-pvc
+        persistentVolumeClaim:
+          claimName: xpayadlsgen2-xpayweb3-pvc
