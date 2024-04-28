@@ -13,7 +13,6 @@
     <modules>
         <module>web</module>
         <module>flink</module>
-        <module>flink/flink-custom-connector</module>
     </modules>
 
     <properties>
