@@ -10,10 +10,10 @@ import java.sql.ResultSetMetaData;
 public class Main {
     public static void main(String[] args) throws Exception {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://192.168.101.150:3306/cms?allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&useUnicode=true");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:postgresql://127.0.0.1:5432/dolphinscheduler");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUsername("root");
-        dataSource.setPassword("123456");
+        dataSource.setPassword("root");
         dataSource.setIdleTimeout(60000);
         dataSource.setAutoCommit(true);
         dataSource.setMaximumPoolSize(5);
@@ -21,7 +21,7 @@ public class Main {
         dataSource.setMaxLifetime(60000 * 10);
         dataSource.setConnectionTestQuery("SELECT 1");
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("show table status");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM pg_database");
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
             ResultSetMetaData metaData = resultSet.getMetaData();
