@@ -13,14 +13,18 @@ public class Main {
                 "    'warehouse'='file:///home/huangjunyao/paimon'\n" +
                 ")");
         tableEnv.executeSql("USE CATALOG my_catalog");
-        tableEnv.executeSql("CREATE TABLE Orders (\n" +
-                "    order_number BIGINT,\n" +
-                "    price        DECIMAL(32,2),\n" +
-                "    buyer        ROW<first_name STRING, last_name STRING>,\n" +
-                "    order_time   TIMESTAMP(3)\n" +
-                ") WITH (\n" +
-                "  'connector' = 'datagen'\n" +
+        tableEnv.executeSql("CREATE TABLE word_count (\n" +
+                "    word STRING PRIMARY KEY NOT ENFORCED,\n" +
+                "    cnt BIGINT\n" +
                 ")");
+        tableEnv.executeSql("CREATE TEMPORARY TABLE word_table (\n" +
+                "    word STRING\n" +
+                ") WITH (\n" +
+                "    'connector' = 'datagen',\n" +
+                "    'fields.word.length' = '1'\n" +
+                ")");
+        tableEnv.executeSql("SET 'execution.checkpointing.interval' = '10 s'");
+        tableEnv.executeSql("INSERT INTO word_count SELECT word, COUNT(*) FROM word_table GROUP BY word");
 //        tableEnv.executeSql("USE CATALOG my_catalog;").print();
     }
 }
