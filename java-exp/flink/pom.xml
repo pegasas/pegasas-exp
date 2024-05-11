@@ -15,6 +15,7 @@
     <modules>
         <module>flink-custom-connector</module>
         <module>paimon</module>
+        <module>flink-datastream</module>
     </modules>
 
     <properties>

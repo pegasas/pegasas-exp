@@ -1,5 +1,20 @@
 # pegasas-exp
 
+docker run -d -p 9092:9092 -p 9093:9093 --name kafka \
+-e "KAFKA_ENABLE_KRAFT=yes" \
+-e "KAFKA_CFG_PROCESS_ROLES=broker,controller" \
+-e "KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER" \
+-e "KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093" \
+-e "KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT" \
+-e "KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092" \
+-e "KAFKA_BROKER_ID=1" \
+-e "KAFKA_KRAFT_CLUSTER_ID=iZWRiSqjZAlYwlKEqHFQWI" \
+-e "KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@127.0.0.1:9093" \
+-e "ALLOW_PLAINTEXT_LISTENER=yes" \
+-v $PWD/kafka:/bitnami/kafka:rw \
+-v $PWD/minio/config:/root/.minio \
+-d bitnami/kafka:3.7.0
+
 docker pull minio/minio
 
 docker run -d -p 9000:9000 -p 9001:9001 --name minio \
