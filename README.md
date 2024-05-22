@@ -180,6 +180,8 @@ start_hive_hiveserver2() {
 ./bin/sql-gateway.sh stop-all
 https://nightlies.apache.org/flink/flink-docs-master/docs/dev/table/sql-gateway/overview/
 
+com.pegasas.exp.Main
+
 ------ docker -------
 
 docker tag ca1b6b825289 registry.cn-hangzhou.aliyuncs.com/xxxxxxx:v1.0
