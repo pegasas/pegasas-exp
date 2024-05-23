@@ -180,8 +180,6 @@ start_hive_hiveserver2() {
 ./bin/sql-gateway.sh stop-all
 https://nightlies.apache.org/flink/flink-docs-master/docs/dev/table/sql-gateway/overview/
 
-com.pegasas.exp.Main
-
 ------ docker -------
 
 docker tag ca1b6b825289 registry.cn-hangzhou.aliyuncs.com/xxxxxxx:v1.0
@@ -193,3 +191,9 @@ kubectl create secret docker-registry billingsi \
     --docker-server=billingsi.azurecr.io \
     --docker-username=billingsi \
     --docker-password=
+
+com.pegasas.exp.Main
+
+docker tag 64ccce90c9aa apache/dolphinscheduler-tools:dev
+
+docker run -d --name dolphinscheduler-tools     -e DATABASE="postgresql"     -e SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/dolphinscheduler"     -e SPRING_DATASOURCE_USERNAME="root"     -e SPRING_DATASOURCE_PASSWORD="root"     -e SPRING_JACKSON_TIME_ZONE="UTC"     --net host     apache/dolphinscheduler-tools:dev tools/bin/upgrade-schema.sh
