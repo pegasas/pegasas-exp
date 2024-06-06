@@ -20,14 +20,14 @@ docker pull minio/minio
 docker run -d -p 9000:9000 -p 9001:9001 --name minio \
 -e "MINIO_ACCESS_KEY=minioadmin" \
 -e "MINIO_SECRET_KEY=minioadmin" \
--v $PWD/minio/data:/data \
--v $PWD/minio/config:/root/.minio \
+-v $PWD/docker/minio/data:/data \
+-v $PWD/docker/minio/config:/root/.minio \
 minio/minio \
 server /data --console-address ":9001" --address ":9000"
 
-docker run -d -p 2181:2181 -v $PWD/zookeeper:/data --name zookeeper -d zookeeper:3.8.0
+docker run -d -p 2181:2181 -v $PWD/docker/zookeeper:/data --name zookeeper -d zookeeper:3.8.0
 
-docker run --name postgresql -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v $PWD/postgresql:/var/lib/postgresql/data -p 5432:5432 -d postgres:9.6.2
+docker run --name postgresql -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v $PWD/docker/postgresql:/var/lib/postgresql/data -p 5432:5432 -d postgres:9.6.2
 
 进入容器：docker exec -it ec2143b01d5a bash
 使用 root 登录：su root
