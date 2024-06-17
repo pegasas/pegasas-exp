@@ -53,12 +53,6 @@ docker run -d -p 3306:3306 --privileged=true -v $PWD/mysql/logs:/logs -v $PWD/my
     <appender-ref ref="STDOUT" />
 </root>
 
-datasource:
-  driver-class-name: org.postgresql.Driver
-  url: jdbc:postgresql://127.0.0.1:5432/dolphinscheduler
-  username: postgres
-  password: root
-
 默认账号密码：
 
 admin / dolphinscheduler123
@@ -197,3 +191,12 @@ com.pegasas.exp.Main
 docker tag 64ccce90c9aa apache/dolphinscheduler-tools:dev
 
 docker run -d --name dolphinscheduler-tools     -e DATABASE="postgresql"     -e SPRING_DATASOURCE_URL="jdbc:postgresql://localhost:5432/dolphinscheduler"     -e SPRING_DATASOURCE_USERNAME="root"     -e SPRING_DATASOURCE_PASSWORD="root"     -e SPRING_JACKSON_TIME_ZONE="UTC"     --net host     apache/dolphinscheduler-tools:dev tools/bin/upgrade-schema.sh
+
+------ python -------
+
+cd Python-3.9.7
+./configure --prefix=/usr/local/python3
+make && make install
+
+ln -s /usr/local/python3/bin/python3.9 /usr/bin/python
+ln -s /usr/local/python3/bin/pip3.9 /usr/bin/pip

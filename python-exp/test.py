@@ -1,4 +1,1 @@
-import torch
-
-torch.cuda.is_available()
-print(torch.cuda.device_count())
+a = 1 + 2
