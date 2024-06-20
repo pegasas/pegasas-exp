@@ -1,3 +1,5 @@
+# [pegasas-conclusion](./conclusion/README.md)
+
 # pegasas-exp
 
 docker run -d -p 9092:9092 -p 9093:9093 --name kafka \
@@ -155,7 +157,7 @@ start_hive_metastore() {
 
         if [ ! -f ${HIVE_HOME}/formated ];then
                 schematool -initSchema -dbType mysql --verbose >  ${HIVE_HOME}/formated
-        fi
+        ficlient
 
         $HIVE_HOME/bin/hive --service metastore
 
