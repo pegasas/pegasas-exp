@@ -100,3 +100,7 @@ go1.2 (2013-12-01)
 go1.1 (2013-05-13)
 go1 (2012-03-28)
 Go 1兼容性保证。
+
+## Go runtime
+
+https://golang.design/under-the-hood/zh-cn/part2runtime/ch07alloc/pagealloc/
