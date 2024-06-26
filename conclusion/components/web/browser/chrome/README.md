@@ -47,3 +47,7 @@ Chrome 将浏览器的每个部分拆分为不同的服务，这样方便拆分�
 
 单帧渲染进程 - 站点隔离
 我们现在知道了Chrome为每个tab都单独起了一个进程，这样产生的问题是如果一个网页中嵌入了多个跨站点的iframe，不同站点之间共享内存空间，这样会产生安全隐患。同源策略是网络的核心安全模型；它确保一个站点未经同意无法访问其他站点的数据。绕过此策略是安全攻击的主要目标。基于进程之间相互隔离的特点，进程隔离是分离站点的最有效方法，Chrome 67以后默认启用站点隔离，选项卡中的每个跨站点 iframe 都有一个单独的渲染器进程。
+
+![chrome-architcture-6.png](./chrome-architcture-6.png)
+
+补充：我们经常还会听到Chromium、Webkit2、Blink这些引擎。Chromium也是基于webkit，2008年开始作为Chrome的引擎，Chromium浏览器是Chrome的实验版，实验新特性。可以简单地理解为：Chromium为实验版，具有众多新特性；Chrome为稳定版。下图是chromium 的架构：
