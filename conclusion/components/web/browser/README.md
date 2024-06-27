@@ -27,6 +27,3 @@ https://github.com/LuckyWinty/blog/blob/master/markdown/Q%26A/%E7%8E%B0%E4%BB%A3
 
 https://cloud.tencent.com/developer/article/1583069
 
-https://blog.csdn.net/abraham76/article/details/124632284
-
-https://blog.csdn.net/abraham76/article/details/124628475
