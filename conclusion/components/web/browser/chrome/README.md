@@ -51,3 +51,7 @@ Chrome 将浏览器的每个部分拆分为不同的服务，这样方便拆分�
 ![chrome-architcture-6.png](./chrome-architcture-6.png)
 
 补充：我们经常还会听到Chromium、Webkit2、Blink这些引擎。Chromium也是基于webkit，2008年开始作为Chrome的引擎，Chromium浏览器是Chrome的实验版，实验新特性。可以简单地理解为：Chromium为实验版，具有众多新特性；Chrome为稳定版。下图是chromium 的架构：
+
+https://blog.csdn.net/abraham76/article/details/124632284
+
+https://blog.csdn.net/abraham76/article/details/124628475
