@@ -202,3 +202,9 @@ make && make install
 
 ln -s /usr/local/python3/bin/python3.9 /usr/bin/python
 ln -s /usr/local/python3/bin/pip3.9 /usr/bin/pip
+
+git ls-remote --tags upstream
+
+查看commit id
+
+git checkout upstream 262a57a4d9c45189f5aaa29d51cda23531233882
