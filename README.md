@@ -209,4 +209,6 @@ git ls-remote --tags upstream
 
 git checkout upstream 262a57a4d9c45189f5aaa29d51cda23531233882
 
+clion debug with rust
+
 进入 “settings” -> “language & framework” 下找到 “rust”，在 “Standard library” 那里选择 “Download via Rustup” 下载。
