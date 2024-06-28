@@ -208,3 +208,5 @@ git ls-remote --tags upstream
 查看commit id
 
 git checkout upstream 262a57a4d9c45189f5aaa29d51cda23531233882
+
+进入 “settings” -> “language & framework” 下找到 “rust”，在 “Standard library” 那里选择 “Download via Rustup” 下载。
