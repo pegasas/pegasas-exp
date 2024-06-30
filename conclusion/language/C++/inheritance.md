@@ -24,6 +24,9 @@ class D:public A,public B  //D为A和B的子类，A和B均为D的父类
 ①派生列表不能出现在类的声明时，只能在定义时，原因如下：
 一条声明语句的目的是让程序知晓某个名字的存在已经改名字表示一个什么样的实体（如一个类、一个函数、或一个变量等）
 
-
+https://juejin.cn/post/7156612705430798367
 
 https://cloud.tencent.com/developer/article/1784573
+
+![inheritance-access.png](./inheritance-access.png)
+
