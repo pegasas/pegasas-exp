@@ -83,8 +83,5 @@
 |可重复读|×|×|√|
 |串行化|×|×|×|
 
-### ANSI SQL 隔离级别
+### [隔离级别扩展](./txn-isolation.md)
 
-https://www.nebula-graph.com.cn/posts/transaction-isolation
-
-https://nan01ab.github.io/2017/08/ANSI-SQL-Isolation-Levels.html
