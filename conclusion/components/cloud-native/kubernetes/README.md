@@ -57,27 +57,27 @@
 
 #### kubelet
 
-kubelet 组件运行在 Node 节点上，用于管理节点。
-kubelet 组件的作用主要有：
-接收、处理、上报 kube-apiserver 组件下发的任务。
-kubelet 进程启动时会向 kube-apiserver 注册节点自身信息。
-kubelet 主要负责所在节点（Node）上的Pod资源对象的管理，例如Pod资源对象的创建、修改、监控、删除、驱逐及Pod生命周期管理等。
-kubelet 组件会定期监控所在节点的资源使用状态并上报给 kube-apiserver 组件，这些资源数据可以帮助 kube-scheduler 调度器为 Pod 资源对象预选节点。
-kubelet也会对所在节点的镜像和容器做清理工作，保证节点上的镜像不会占满磁盘空间、删除的容器释放相关资源。
-kubelet组件实现了3种开放接口：
-Container Runtime Interface(CRI) : 容器运行时接口，提供容器运行时通用插件接口服务。
-CRI 定义了容器和镜像服务的接口
-CRI 将 kubelet 组件与容器运行时进行解耦，将原来完全面向 Pod 级别的内部接口拆分成面向 Sandbox 和 Container 的 gRPC 接口，并将镜像管理和容器管理分离给不同的服务。
-CRI 是 K8S 定义的一套容器运行时接口，基于 gRPC 通讯，但是 docker 不是基于 CRI 的，因此 kubelet 又把 docker 封装了一层，搞了一个所谓的shim，也即是 dockershim 的东西，dockershim 作为一个实现了 CRI  接口的 gRPC 服务器，供 kubelet 使用。
-这样的过程其实就是，kubelet 作为客户端 通过 gRPC 调用 dockershim 服务器，dockershim 内部又通过 docker 客户端走 http 调用 docker daemon api，多走了一次通讯的开销。下图是目前默认使用 docker 作为容器引擎的时候，调用过程。
-Container Network Interface(CNI) : 容器网络接口，提供网络通用插件接口服务。
-CNI 定义了 Kubernetes 网络插件的基础，容器创建时通过 CNI 插件配置网络。
-CNI 仅关心容器创建时的网络分配，和当容器被删除时释放网络资源。
-CNI 的主要功能就是： 为容器分配IP地址、不同容器之间的互通
-Container Storage Interface(CSI) : 容器存储接口，提供存储通用插件接口服务。
-CSI 定义了容器存储卷标准规范，容器创建时通过 CSI 插件配置存储卷。
-CSI 可以用来创建动态卷，但是需要安装对应的 CSI 插件，例如，使用 NFS 插件，来动态创建 pv ，
-CSI 持久化卷具有以下字段可供用户指定： driver（指定要使用的卷驱动程序的名称），volumeHandle（唯一标识从 CSI 卷插件的 CreateVolume 调用返回的卷名），readOnly（可选，指示卷是否被发布为只读）。
+- kubelet 组件运行在 Node 节点上，用于管理节点。
+- kubelet 组件的作用主要有：
+    - 接收、处理、上报 kube-apiserver 组件下发的任务。
+    - kubelet 进程启动时会向 kube-apiserver 注册节点自身信息。
+    - kubelet 主要负责所在节点（Node）上的Pod资源对象的管理，例如Pod资源对象的创建、修改、监控、删除、驱逐及Pod生命周期管理等。
+    - kubelet 组件会定期监控所在节点的资源使用状态并上报给 kube-apiserver 组件，这些资源数据可以帮助 kube-scheduler 调度器为 Pod 资源对象预选节点。
+    - kubelet也会对所在节点的镜像和容器做清理工作，保证节点上的镜像不会占满磁盘空间、删除的容器释放相关资源。
+- kubelet组件实现了3种开放接口：
+    - Container Runtime Interface(CRI) : 容器运行时接口，提供容器运行时通用插件接口服务。
+        - CRI 定义了容器和镜像服务的接口
+        - CRI 将 kubelet 组件与容器运行时进行解耦，将原来完全面向 Pod 级别的内部接口拆分成面向 Sandbox 和 Container 的 gRPC 接口，并将镜像管理和容器管理分离给不同的服务。
+        - CRI 是 K8S 定义的一套容器运行时接口，基于 gRPC 通讯，但是 docker 不是基于 CRI 的，因此 kubelet 又把 docker 封装了一层，搞了一个所谓的shim，也即是 dockershim 的东西，dockershim 作为一个实现了 CRI  接口的 gRPC 服务器，供 kubelet 使用。
+        - 这样的过程其实就是，kubelet 作为客户端 通过 gRPC 调用 dockershim 服务器，dockershim 内部又通过 docker 客户端走 http 调用 docker daemon api，多走了一次通讯的开销。下图是目前默认使用 docker 作为容器引擎的时候，调用过程。
+    - Container Network Interface(CNI) : 容器网络接口，提供网络通用插件接口服务。
+        - CNI 定义了 Kubernetes 网络插件的基础，容器创建时通过 CNI 插件配置网络。
+        - CNI 仅关心容器创建时的网络分配，和当容器被删除时释放网络资源。
+        - CNI 的主要功能就是： 为容器分配IP地址、不同容器之间的互通
+    - Container Storage Interface(CSI) : 容器存储接口，提供存储通用插件接口服务。
+        - CSI 定义了容器存储卷标准规范，容器创建时通过 CSI 插件配置存储卷。
+        - CSI 可以用来创建动态卷，但是需要安装对应的 CSI 插件，例如，使用 NFS 插件，来动态创建 pv ，
+        - CSI 持久化卷具有以下字段可供用户指定： driver（指定要使用的卷驱动程序的名称），volumeHandle（唯一标识从 CSI 卷插件的 CreateVolume 调用返回的卷名），readOnly（可选，指示卷是否被发布为只读）。
 
 #### kube-proxy
 
