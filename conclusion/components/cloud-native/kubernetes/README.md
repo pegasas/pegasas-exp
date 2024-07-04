@@ -93,3 +93,5 @@ https://kingjcy.github.io/post/cloud/paas/base/kubernetes/k8s-autoscaler/
 https://www.cnblogs.com/caodan01/p/15102328.html
 
 https://www.guoshaohe.com/cloud-computing/kubernetes-source-read/1249
+
+https://arthurchiao.art/blog/what-happens-when-k8s-creates-pods-5-zh/#65-%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E8%B7%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9Cinter-host-networking
