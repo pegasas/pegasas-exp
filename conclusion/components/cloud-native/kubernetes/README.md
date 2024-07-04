@@ -103,3 +103,10 @@ https://www.guoshaohe.com/cloud-computing/kubernetes-source-read/1249
 源码解析：K8s 创建 pod 时，背后发生了什么（四）（2021）
 源码解析：K8s 创建 pod 时，背后发生了什么（五）（2021）
 https://arthurchiao.art/blog/what-happens-when-k8s-creates-pods-5-zh/#65-%E4%B8%BA%E5%AE%B9%E5%99%A8%E9%85%8D%E7%BD%AE%E8%B7%A8%E8%8A%82%E7%82%B9%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9Cinter-host-networking
+
+https://developer.aliyun.com/article/798703
+
+我们将 CRD, Controller, Webhook 三者合起来叫 Operator。一个 Operator 工程一般必须包含 CRD 和 Controller，Admission 是可选的。如果说 Kubernetes 是 "操作系统" 的话，Operator 是 Kubernetes 的第一层应用，它部署在 Kubernetes 里，使用 Kubernetes "扩展资源" 接口的方式向更上层用户提供服务。
+Operator的实现方式主要包括OperatorSDK和KubeBuilder，目前KubeBuilder在阿里使用的比较多。
+KubeBuilder
+OperatorSDK
