@@ -81,10 +81,10 @@
 
 #### kube-proxy
 
-kube-proxy 运行在 Node 节点上，是 Node 节点的网络代理。
-kube-proxy 监控 kube-apiserver 的服务和端点资源变化，并通过 iptables/ipvs 等配置负载均衡器，为一组 Pod 提供统一的 TCP/UDP 流量转发和负载均衡功能。
-kube-proxy 用来完成Pod-to-Service 和 External-to-Service 网络治理，对于某个 IP：Port 的请求，负责将其转发给专用网络上的相应服务或应用程序。
-kube-proxy 组件与其他负载均衡服务的区别在于，kube-proxy 代理只向 Kubernetes 服务及其后端 Pod 发出请求。
+- kube-proxy 运行在 Node 节点上，是 Node 节点的网络代理。
+- kube-proxy 监控 kube-apiserver 的服务和端点资源变化，并通过 iptables/ipvs 等配置负载均衡器，为一组 Pod 提供统一的 TCP/UDP 流量转发和负载均衡功能。
+- kube-proxy 用来完成Pod-to-Service 和 External-to-Service 网络治理，对于某个 IP：Port 的请求，负责将其转发给专用网络上的相应服务或应用程序。
+- kube-proxy 组件与其他负载均衡服务的区别在于，kube-proxy 代理只向 Kubernetes 服务及其后端 Pod 发出请求。
 
 ## K8s autoscaler
 
