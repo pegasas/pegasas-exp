@@ -10,17 +10,15 @@
 
 ## [动态规划基础](./basic.md)
 
-## 记忆化搜索
+## [记忆化搜索](./memo.md)
 
-## 背包DP
+## [背包DP](./knapsack.md)
 
-见 backpack.pdf
+## [区间DP](./interval.md)
 
-## 区间DP
+## [DAG上DP](./dag.md)
 
-## 概率DP
-
-## 树形/DAG DP
+## [树形DP](./tree.md)
 
 ## 状压DP/插头DP
 
