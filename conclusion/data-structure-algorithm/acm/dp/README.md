@@ -20,20 +20,24 @@
 
 ## [树形DP](./tree.md)
 
-## 状压DP/插头DP
+## [状压DP](./state.md)
 
-## 数位DP
+## [数位DP](./number.md)
 
-## 计数DP
+## [插头DP](./plug.md)
 
-## 动态DP
+## [计数DP](./count.md)
+
+## [动态DP](./dynamic.md)
+
+## [概率DP](./probability.md)
 
 ## DP优化
 
-### 单调队列/单调栈优化
+### [单调队列/单调栈优化](./opt/monotonous-queue-stack.md)
 
-### 斜率优化
+### [斜率优化](./opt/slope.md)
 
-### 四边形不等式优化
+### [四边形不等式优化](./opt/quadrangle.md)
 
-### 状态设计优化
+### [状态设计优化](./opt/state.md)
