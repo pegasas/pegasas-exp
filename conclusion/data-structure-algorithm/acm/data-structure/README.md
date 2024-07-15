@@ -23,3 +23,13 @@
 ### [配对堆](./pairing-heap.md)
 
 ### [左偏树](./leftist-tree.md)
+
+## 块状数据结构
+
+### [分块思想](./decompose.md)
+
+### [块状数组](./block-array.md)
+
+### [块状链表](./block-list.md)
+
+### [树分块](./tree-decompose.md)
