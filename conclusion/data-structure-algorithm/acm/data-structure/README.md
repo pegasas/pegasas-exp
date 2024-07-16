@@ -33,3 +33,5 @@
 ### [块状链表](./block-list.md)
 
 ### [树分块](./tree-decompose.md)
+
+### [Sqrt Tree](./)
