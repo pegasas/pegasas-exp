@@ -27,3 +27,9 @@ https://cloud.tencent.com/developer/article/1793053
 3.继续完善
 
 经过 2018 年的大规模重构，知乎搜索的稳定性和迭代效率有了质的提升。但是我们也看到在效果上还有很大优化空间，在未来我们将会投入更多工作在排序质量和内容召回能力等方向。
+
+https://rustmagazine.github.io/rust_magazine_2021/chapter_4/zhihu_simd_rucene.html
+
+https://github.com/zhihu/rucene
+
+https://geek.zshipu.com/post/%E4%BA%92%E8%81%94%E7%BD%91/%E7%9F%A5%E4%B9%8E%E6%90%9C%E7%B4%A2%E6%8E%92%E5%BA%8F%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%BC%94%E8%BF%9B/
