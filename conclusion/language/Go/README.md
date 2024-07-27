@@ -11,6 +11,8 @@ Gccgo 提供了标准的，完整的 Go 库。 Go 运行时的许多核心功能
 
 https://golang.design/under-the-hood/zh-cn/part2runtime/ch06sched/mpg/
 
+https://qcrao91.gitbook.io/go/bian-yi-he-lian-jie/go-bian-yi-lian-jie-guo-cheng-gai-shu#yu-yi-fen-xi
+
 ## Release History
 
 https://www.cnblogs.com/garvenc/p/18133242/go_document_release_history
