@@ -7,3 +7,7 @@ https://github.com/datawhalechina/fun-rec/blob/master/docs/ch01/ch1.3.md
 https://aws.amazon.com/cn/blogs/china/practice-of-knowledge-question-answering-application-based-on-llm-knowledge-base-construction-part-3/
 
 基于大语言模型知识问答应用落地实践 – 知识召回调优（上）
+
+推荐系统系列之推荐系统召回阶段的深入探讨
+
+https://aws.amazon.com/cn/blogs/china/in-depth-discussion-on-the-recall-stage-of-recommendation-system-of-recommendation-system-series/
