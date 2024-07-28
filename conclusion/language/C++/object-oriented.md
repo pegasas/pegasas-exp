@@ -199,6 +199,18 @@ https://www.cnblogs.com/sunbines/p/9215305.html
 
 https://www.cnblogs.com/zhxmdefj/p/11594459.html
 
+https://blog.csdn.net/i_chaoren/article/details/77281785
+
+https://roachsinai.github.io/Cpp-learning-notes/class/vtable/multi_vir_inheritance.html
+
+https://blog.csdn.net/qq_36359022/article/details/81870219
+
+https://dwj1210.github.io/2020/03/12/C++%20%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/
+
+https://blog.csdn.net/u012679707/article/details/80217265
+
+https://www.cnblogs.com/baiyanhuang/archive/2011/03/07/1976445.html
+
 ### C++ 析构函数可以抛出异常吗？
 
 首先，从语法层面 C++ 并没有禁止析构函数抛出异常，但是实践中建议不要这样做。
