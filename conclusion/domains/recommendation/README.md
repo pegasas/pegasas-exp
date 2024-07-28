@@ -15,3 +15,5 @@ https://aws.amazon.com/cn/blogs/china/in-depth-discussion-on-the-recall-stage-of
 OpenSearch-召回引擎版是阿里巴巴自主研发的大规模分布式搜索引擎，支持了淘宝、天猫、菜鸟、优酷乃至海外电商在内整个集团的搜索业务，同时也支撑了阿里云上的开放搜索业务。OpenSearch-召回引擎版经过多年的发展，在满足业务高可用、高时效性、低成本等需求的同时，也沉淀出一套自动化运维系统，使用它用户可以根据自己的业务特点方便的构建自己的搜索服务。
 
 https://www.alibabacloud.com/help/zh/open-search/retrieval-engine-edition/introduction-to-retrieval-engine-edition?spm=a2c63.p38356.0.0.5fca2d84xcqXTh
+
+ES https://cloud.tencent.com/developer/article/1835369
