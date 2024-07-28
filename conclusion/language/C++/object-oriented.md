@@ -197,6 +197,8 @@ int main(){
 
 https://www.cnblogs.com/sunbines/p/9215305.html
 
+https://www.cnblogs.com/zhxmdefj/p/11594459.html
+
 ### C++ 析构函数可以抛出异常吗？
 
 首先，从语法层面 C++ 并没有禁止析构函数抛出异常，但是实践中建议不要这样做。
