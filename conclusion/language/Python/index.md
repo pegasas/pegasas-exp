@@ -20,6 +20,4 @@ pyc的目的是重用，Python解释器认为：只有import进来的模块，�
 
 Scala的解释器本质上并不是解释器，应该叫REPL即读取-求值-打印-循环。我们输入的代码被迅速的编译成字节码然后这段字节码由Java虚拟机执行。
 
-## Python Ubuntu Installation
-
-https://blog.csdn.net/JineD/article/details/129507719
+## [Python 内存模型](./python-memory.md)
