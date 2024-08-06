@@ -1,5 +1,7 @@
 # Redis数据结构
 
+https://www.cnblogs.com/xiaolincoding/p/16370783.html
+
 Redis 提供了丰富的数据类型，常见的有五种数据类型：String（字符串），Hash（哈希），List（列表），Set（集合）、Zset（有序集合）。
 
 ![redis-data-structure-1.webp](./redis-data-structure-1.webp)

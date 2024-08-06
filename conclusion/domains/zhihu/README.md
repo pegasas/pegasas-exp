@@ -2,6 +2,8 @@ https://www.6aiq.com/article/1549118463410#google_vignette
 
 https://cloud.tencent.com/developer/article/1793053
 
+https://geek.zshipu.com/post/%E4%BA%92%E8%81%94%E7%BD%91/%E7%90%86%E8%A7%A3%E5%92%8C%E8%AF%AD%E4%B9%89%E5%8F%AC%E5%9B%9E%E5%9C%A8%E7%9F%A5%E4%B9%8E%E6%90%9C%E7%B4%A2%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/#google_vignette
+
 一、知乎搜索工程架构的演进
 1.初代搜索
 
