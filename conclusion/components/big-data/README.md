@@ -2,6 +2,8 @@
 
 ![hadoop-ecosystem.jpg](./hadoop-ecosystem.jpg)
 
+
+
 ![big-data-ecosystem.png](./big-data-ecosystem.png)
 
 ## 数据采集/数据同步技术框架

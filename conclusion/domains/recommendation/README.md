@@ -17,3 +17,5 @@ OpenSearch-召回引擎版是阿里巴巴自主研发的大规模分布式搜索
 https://www.alibabacloud.com/help/zh/open-search/retrieval-engine-edition/introduction-to-retrieval-engine-edition?spm=a2c63.p38356.0.0.5fca2d84xcqXTh
 
 ES https://cloud.tencent.com/developer/article/1835369
+
+https://www.cnblogs.com/papering/p/6407969.html
