@@ -1,5 +1,7 @@
 # 设计模式
 
+https://www.cnblogs.com/huansky/p/13700861.html
+
 设计模式六大原则，具体如下：
 
 单一职责原则（类和方法，接口）
